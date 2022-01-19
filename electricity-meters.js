@@ -35,7 +35,7 @@ module.exports = function(pool) {
 
 	// decrease the meter balance for the meterId supplied 
 	async function useElectricity(meterId, units) {
-		if (meterId.rows.length == 0){
+		if (meterId.rows == 0){
 			await pool.query('update electricity_meter set balance = balance + 50 where meter_number = $1', [units]);
 		}
 	}
