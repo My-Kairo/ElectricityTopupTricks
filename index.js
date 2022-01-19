@@ -45,13 +45,17 @@ app.get('/streets', async function(req, res, next) {
 	}
 });
 
-app.get('/appliances', async function(req, res){
+app.get('/streets', async function(req, res){
 	const appl = await electricityMeters.appliances();
 	console.log(appl);
 	res.render('appliances',{
-		appliance
+		appliances
 	});
 });
+
+app.get('/appliances', async function(req, res){
+	res.render('appliances')
+})
 
 app.get('/meter/:street_id', async function(req, res) {
 	const meters = await electricityMeters.streetMeters();
