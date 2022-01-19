@@ -2,6 +2,12 @@
 module.exports = function(pool) {
 
 	// list all the streets the we have on records
+	async function streets() {
+		const streets = await pool.query(`select * from street`);
+		return streets.rows;
+	}
+	
+	// list all the streets the we have on records
 	async function streetMeters(streetId) {
 		const street = await pool.query(`select * from street where balance, meter_number = '${streetId}'`)
 		return street.rows;
@@ -15,20 +21,20 @@ module.exports = function(pool) {
 
 	// increase the meter balance for the meterId supplied
 	async function topupElectricity(meterId, units) {
-		const top = await pool.query('update')
-	}
+		const sql = await pool.query('select * from electricity_meter', [meterId]);
+		if (sql.rows.length == 0){
+			await pool.query('update electricity_meter set balance = balance + 50 where meter_number = $1', [units])
 
-	// increase the meter balance for the meterId supplied
-	function topupElectricity(meterId, units) {
-
+		}
 	}
 	
 	// return the data for a given balance
-	function meterData(meterId) {
-	
+	async function meterData(meterId) {
+	const meter = await pool.query('select * from electricity_meter where balance = $1', [meterId]);
+	return meter.rows[0];
 	}
 
-	// decrease the meter balance for the meterId supplied
+	// decrease the meter balance for the meterId supplied 
 	function useElectricity(meterId, units) {
 	
 	}
