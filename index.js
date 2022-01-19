@@ -45,45 +45,45 @@ app.get('/streets', async function(req, res, next) {
 	}
 });
 
-// app.get('/appliances', async function(req, res){
-// 	const appl = await electricityMeters.appliances();
-// 	console.log(appl);
-// 	res.render('appliances',{
-// 		appliance
-// 	});
-// });
+app.get('/appliances', async function(req, res){
+	const appl = await electricityMeters.appliances();
+	console.log(appl);
+	res.render('appliances',{
+		appliance
+	});
+});
 
-// app.get('/meter/:street_id', async function(req, res) {
-// 	const meters = await electricityMeters.streetMeters();
-// 	console.log(meters);
-// 	const mtr = req.params.street_id;
+app.get('/meter/:street_id', async function(req, res) {
+	const meters = await electricityMeters.streetMeters();
+	console.log(meters);
+	const mtr = req.params.street_id;
 
-// 	// use the streetMeters method in the factory function...
-// 	// send the street id in as sent in by the URL parameter street_id - req.params.street_id
+	// use the streetMeters method in the factory function...
+	// send the street id in as sent in by the URL parameter street_id - req.params.street_id
 
-// 	// create  template called street_meters.handlebars
-// 	// in there loop over all the meters and show them on the screen.
-// 	// show the street number and name and the meter balance
+	// create  template called street_meters.handlebars
+	// in there loop over all the meters and show them on the screen.
+	// show the street number and name and the meter balance
 
-// 	res.render('street_meters', {
-// 		meters
-// 	});
-// });
+	res.render('street_meters', {
+		meters
+	});
+});
 
-// app.get('/meter/use/:meter_id', async function(req, res) {
+app.get('/meter/use/:meter_id', async function(req, res) {
 
-// 	// show the current meter balance and select the appliance you are using electricity for
-// 	res.render('use_electicity', {
-// 		meters
-// 	});
-// });
+	// show the current meter balance and select the appliance you are using electricity for
+	res.render('use_electicity', {
+		meters
+	});
+});
 
-// app.post('/meter/use/:meter_id', async function(req, res) {
+app.post('/meter/use/:meter_id', async function(req, res) {
 
-// 	// update the meter balance with the usage of the appliance selected.
-// 	res.render(`/meter/user/${req.params.meter_id}`);
+	// update the meter balance with the usage of the appliance selected.
+	res.render(`/meter/user/${req.params.meter_id}`);
 
-// });
+});
 
 // start  the server and start listening for HTTP request on the PORT number specified...
 app.listen(PORT, function() {
