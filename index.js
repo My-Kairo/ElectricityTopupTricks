@@ -32,12 +32,17 @@ app.get('/', function(req, res) {
 	res.redirect('/streets');
 });
 
-app.get('/streets', async function(req, res) {
-	const streets = await electricityMeters.streets();
+app.get('/streets', async function(req, res, next) {
+	try {
+		const streets = await electricityMeters.streets();
 	console.log(streets);
 	res.render('streets', {
 		streets
 	});
+
+	}catch (error){
+		next(error)
+	}
 });
 
 // app.get('/appliances', async function(req, res){
