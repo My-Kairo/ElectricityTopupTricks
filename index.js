@@ -4,11 +4,11 @@ const pg = require('pg');
 const Pool = pg.Pool;
 
 const app = express();
-const PORT =  process.env.PORT || 3017;
+const PORT =  process.env.PORT || 3011;
 
 const ElectricityMeters = require('./electricity-meters');
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://localhost:5432/topups';
+const connectionString = process.env.DATABASE_URL || 'postgresql://codex:pg123@localhost:5432/topups_db';
 
 const pool = new Pool({
     connectionString  
@@ -40,8 +40,19 @@ app.get('/streets', async function(req, res) {
 	});
 });
 
-app.get('/meter/:street_id', async function(req, res) {
+app.get('/appliances', async function(req, res){
+	const appl = await electricityMeters.appliances();
+	console.log(appl);
+	res.render('appliances',{
+		appliance
+	});
+});
 
+app.get('/meter/:street_id', async function(req, res) {
+	const meters = await electricityMeters.streetMeters();
+	console.log(meters);
+	const mtr = req.params.street_id;
+	
 	// use the streetMeters method in the factory function...
 	// send the street id in as sent in by the URL parameter street_id - req.params.street_id
 

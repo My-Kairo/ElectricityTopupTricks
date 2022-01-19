@@ -43,7 +43,7 @@ describe("The Electricity meter", function() {
 		const electricityMeters = ElectricityMeters(pool);
 		const appliances = await electricityMeters.appliances();
 		
-		assert.deepStrictEqual([], appliances);
+		assert.deepStrictEqual(plianc, appliances);
 
 	});
 

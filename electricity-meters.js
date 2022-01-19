@@ -33,10 +33,16 @@ module.exports = function(pool) {
 	}
 
 	// decrease the meter balance for the meterId supplied 
-	function useElectricity(meterId, units) {
+	async function useElectricity(meterId, units) {
 		if (meterId.rows.length == 0){
 			await pool.query('update electricity_meter set balance = balance + 50 where meter_number = $1', [units]);
 		}
+	}
+
+	// return the total balance for each street
+	async function totalStreetBalance (street_id){
+		const total = await pool.query('select SUM(balance) from electricity_meter', [street_id]);
+		return total.rows;
 	}
 
 	return {
@@ -45,7 +51,8 @@ module.exports = function(pool) {
 		appliances,
 		topupElectricity,
 		meterData,
-		useElectricity
+		useElectricity,
+		totalStreetBalance
 	}
 
 
