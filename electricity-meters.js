@@ -2,19 +2,20 @@
 module.exports = function(pool) {
 
 	// list all the streets the we have on records
-	async function streets() {
-		const streets = await pool.query(`select * from street`);
-		return streets.rows;
-	}
-
-	// for a given street show all the meters and their balances
-	function streetMeters(streetId) {
-
+	async function streetMeters(streetId) {
+		const street = await pool.query(`select * from street where balance, meter_number = '${streetId}'`)
+		return street.rows;
 	}
 
 	// return all the appliances
-	function appliances() {
+	async function appliances() {
+		const appl = await pool.query(`select * from appliance`);
+		return appl.rows;
+	}
 
+	// increase the meter balance for the meterId supplied
+	async function topupElectricity(meterId, units) {
+		const top = await pool.query('update')
 	}
 
 	// increase the meter balance for the meterId supplied
